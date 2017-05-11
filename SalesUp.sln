@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesUp.BLL", "SalesUp.BLL\SalesUp.BLL.csproj", "{CC93EA24-ACA1-406C-AB49-F6A6001860B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesUp.DAL", "SalesUp.DAL\SalesUp.DAL.csproj", "{BA001E61-11C2-4591-B7FA-BEDB806B0E12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesUp.API", "SalesUp.API\SalesUp.API.csproj", "{F404A146-FD37-4BAF-B105-66471D0D4733}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC93EA24-ACA1-406C-AB49-F6A6001860B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC93EA24-ACA1-406C-AB49-F6A6001860B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC93EA24-ACA1-406C-AB49-F6A6001860B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC93EA24-ACA1-406C-AB49-F6A6001860B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA001E61-11C2-4591-B7FA-BEDB806B0E12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA001E61-11C2-4591-B7FA-BEDB806B0E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA001E61-11C2-4591-B7FA-BEDB806B0E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA001E61-11C2-4591-B7FA-BEDB806B0E12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F404A146-FD37-4BAF-B105-66471D0D4733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F404A146-FD37-4BAF-B105-66471D0D4733}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F404A146-FD37-4BAF-B105-66471D0D4733}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F404A146-FD37-4BAF-B105-66471D0D4733}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
