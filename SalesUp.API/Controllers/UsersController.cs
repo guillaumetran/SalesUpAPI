@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SalesUp.API.Models;
 using SalesUp.BLL;
 using SalesUp.DAL.Entity;
 using Swashbuckle.Swagger.Annotations;
@@ -17,6 +18,7 @@ namespace SalesUp.API.Controllers
     {
         private IUsersService usersService = new UsersService();
         private ICompanyService companyService = new CompanyService();
+        private Utils utils = new Utils();
 
         // GET api/values
         /// <summary>This method returns all the Users.</summary>
@@ -25,9 +27,25 @@ namespace SalesUp.API.Controllers
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [SwaggerResponse(HttpStatusCode.InternalServerError)]
-        public HttpResponseMessage Get()
+        [SwaggerResponse(HttpStatusCode.Unauthorized)]
+        public HttpResponseMessage Get(HttpRequestMessage req)
         {
             HttpResponseMessage result = null;
+            string userId = null;
+
+            #region InputCheck
+            try
+            {
+                string token = req.Headers.Authorization.ToString();
+                userId = utils.checkToken(token);
+            }
+            catch (Exception tEx)
+            {
+                result = Request.CreateResponse(HttpStatusCode.Unauthorized);
+                result.Content = new StringContent(JsonConvert.SerializeObject("Unauthorized access"), Encoding.UTF8, "application/json");
+                return result;
+            }
+            #endregion
 
             try
             {
@@ -62,16 +80,21 @@ namespace SalesUp.API.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         [SwaggerResponse(HttpStatusCode.InternalServerError)]
-        public HttpResponseMessage Get(string id)
+        public HttpResponseMessage Get(HttpRequestMessage req, string id)
         {
             HttpResponseMessage result = null;
+            string userId = null;
 
             #region InputCheck
-            if (!IsGuid(id))
+            try
             {
-                var message = JsonConvert.SerializeObject("This ID is not a GUID");
-                result = Request.CreateResponse(HttpStatusCode.BadRequest);
-                result.Content = new StringContent(message, Encoding.UTF8, "application/json");
+                string token = req.Headers.Authorization.ToString();
+                userId = utils.checkToken(token);
+            }
+            catch (Exception tEx)
+            {
+                result = Request.CreateResponse(HttpStatusCode.Unauthorized);
+                result.Content = new StringContent(JsonConvert.SerializeObject("Unauthorized access"), Encoding.UTF8, "application/json");
                 return result;
             }
             #endregion
@@ -82,13 +105,13 @@ namespace SalesUp.API.Controllers
                 if (user != null)
                 {
                     result = Request.CreateResponse(HttpStatusCode.OK);
+                    result.Content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
                 }
                 else
                 {
                     result = Request.CreateResponse(HttpStatusCode.NotFound);
+                    result.Content = new StringContent(JsonConvert.SerializeObject("The user doesn't exist"), Encoding.UTF8, "application/json");
                 }
-
-                result.Content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
             }
             catch (System.Exception tEx)
             {
@@ -115,12 +138,23 @@ namespace SalesUp.API.Controllers
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.Found)]
         [SwaggerResponse(HttpStatusCode.InternalServerError)]
-        public HttpResponseMessage Post([FromBody] Users value)
+        public HttpResponseMessage Post(HttpRequestMessage req, [FromBody] Users value)
         {
             HttpResponseMessage result = null;
+            string userId = null;
 
             #region InputCheck
-
+            try
+            {
+                string token = req.Headers.Authorization.ToString();
+                userId = utils.checkToken(token);
+            }
+            catch (Exception tEx)
+            {
+                result = Request.CreateResponse(HttpStatusCode.Unauthorized);
+                result.Content = new StringContent(JsonConvert.SerializeObject("Unauthorized access"), Encoding.UTF8, "application/json");
+                return result;
+            }
             try
             {
                 if (usersService.GetById(value.Id) != null)
@@ -131,7 +165,7 @@ namespace SalesUp.API.Controllers
                 }
                 if (companyService.GetById(value.CompanyId) == null)
                 {
-                    result = Request.CreateResponse(HttpStatusCode.Found);
+                    result = Request.CreateResponse(HttpStatusCode.NotFound);
                     result.Content = new StringContent(JsonConvert.SerializeObject("The company doesn't exist"), Encoding.UTF8, "application/json");
                     return result;
                 }
@@ -142,12 +176,10 @@ namespace SalesUp.API.Controllers
                 result = Request.CreateResponse(HttpStatusCode.InternalServerError);
                 result.Content = new StringContent(JsonConvert.SerializeObject(raisedException), Encoding.UTF8, "application/json");
             }
-
             #endregion
 
             try
             {
-                //value.Id = Guid.NewGuid().ToString();
                 usersService.Add(value);
                 result = Request.CreateResponse(HttpStatusCode.OK);
                 result.Content = new StringContent(JsonConvert.SerializeObject("Insert operation is a success"),
@@ -177,17 +209,21 @@ namespace SalesUp.API.Controllers
         [SwaggerOperation("Put")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.InternalServerError)]
-        public HttpResponseMessage Put([FromBody] Users value)
+        public HttpResponseMessage Put(HttpRequestMessage req, [FromBody] Users value)
         {
             HttpResponseMessage result = null;
+            string userId = null;
 
             #region InputCheck
-
-            if (!IsGuid(value.Id))
+            try
             {
-                var message = JsonConvert.SerializeObject("This ID is not a GUID");
-                result = Request.CreateResponse(HttpStatusCode.BadRequest);
-                result.Content = new StringContent(message, Encoding.UTF8, "application/json");
+                string token = req.Headers.Authorization.ToString();
+                userId = utils.checkToken(token);
+            }
+            catch (Exception tEx)
+            {
+                result = Request.CreateResponse(HttpStatusCode.Unauthorized);
+                result.Content = new StringContent(JsonConvert.SerializeObject("Unauthorized access"), Encoding.UTF8, "application/json");
                 return result;
             }
             if (companyService.GetById(value.CompanyId) == null)
@@ -196,7 +232,6 @@ namespace SalesUp.API.Controllers
                 result.Content = new StringContent(JsonConvert.SerializeObject("The company doesn't exist"), Encoding.UTF8, "application/json");
                 return result;
             }
-
             #endregion
 
             try
@@ -223,16 +258,21 @@ namespace SalesUp.API.Controllers
         [SwaggerOperation("Delete")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.InternalServerError)]
-        public HttpResponseMessage Delete(string id)
+        public HttpResponseMessage Delete(HttpRequestMessage req, string id)
         {
             HttpResponseMessage result = null;
+            string userId = null;
 
             #region InputCheck
-            if (!IsGuid(id))
+            try
             {
-                var message = JsonConvert.SerializeObject("This ID is not a GUID");
-                result = Request.CreateResponse(HttpStatusCode.BadRequest);
-                result.Content = new StringContent(message, Encoding.UTF8, "application/json");
+                string token = req.Headers.Authorization.ToString();
+                userId = utils.checkToken(token);
+            }
+            catch (Exception tEx)
+            {
+                result = Request.CreateResponse(HttpStatusCode.Unauthorized);
+                result.Content = new StringContent(JsonConvert.SerializeObject("Unauthorized access"), Encoding.UTF8, "application/json");
                 return result;
             }
             #endregion
@@ -243,7 +283,7 @@ namespace SalesUp.API.Controllers
                 if (userToDelete == null)
                 {
                     result = Request.CreateResponse(HttpStatusCode.NotFound);
-                    result.Content = new StringContent(JsonConvert.SerializeObject("User id doesn't exist in database"), Encoding.UTF8, "application/json");
+                    result.Content = new StringContent(JsonConvert.SerializeObject("The user doesn't exist"), Encoding.UTF8, "application/json");
                 }
                 else
                 {
@@ -259,21 +299,6 @@ namespace SalesUp.API.Controllers
                 result.Content = new StringContent(JsonConvert.SerializeObject(raisedException.ToString()), Encoding.UTF8, "application/json");
             }
             return result;
-        }
-
-        public bool IsGuid(string id)
-        {
-            try
-            {
-                Guid testGuid = new Guid(id);
-
-                if (id == testGuid.ToString())
-                    return true;
-            }
-            catch
-            {
-            }
-            return false;
         }
     }
 }
