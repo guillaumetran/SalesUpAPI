@@ -70,3 +70,6 @@ C:\Users\Guillaume Tran\documents\visual studio 2017\Projects\SalesUp\SalesUp.AP
 C:\Users\Guillaume Tran\documents\visual studio 2017\Projects\SalesUp\SalesUp.API\obj\Release\SalesUp.API.csprojResolveAssemblyReference.cache
 C:\Users\Guillaume Tran\documents\visual studio 2017\Projects\SalesUp\SalesUp.API\obj\Release\SalesUp.API.dll
 C:\Users\Guillaume Tran\documents\visual studio 2017\Projects\SalesUp\SalesUp.API\obj\Release\SalesUp.API.pdb
+C:\Users\Guillaume Tran\Documents\Visual Studio 2017\Projects\SalesUp\SalesUp.API\bin\System.Web.Cors.dll
+C:\Users\Guillaume Tran\Documents\Visual Studio 2017\Projects\SalesUp\SalesUp.API\bin\System.Web.Http.Cors.dll
+C:\Users\Guillaume Tran\Documents\Visual Studio 2017\Projects\SalesUp\SalesUp.API\bin\System.Web.Http.Cors.xml

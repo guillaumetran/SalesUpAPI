@@ -22,7 +22,6 @@
     <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CompanyId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Company" Relationship="Self.FK_Users_Company" FromRole="Users" ToRole="Company" />
   </EntityType>

@@ -17,8 +17,7 @@ namespace SalesUp.DAL.Entity
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Mail { get; set; }
-        public string Password { get; set; }
-        public virtual string CompanyId { get; set; }
+        public string CompanyId { get; set; }
         [JsonIgnore]
         public virtual Company Company { get; set; }
     }

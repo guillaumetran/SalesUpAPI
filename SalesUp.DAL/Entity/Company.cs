@@ -9,7 +9,6 @@
 
 namespace SalesUp.DAL.Entity
 {
-    using Newtonsoft.Json;
     using System.Collections.Generic;
     
     public partial class Company
@@ -30,7 +29,6 @@ namespace SalesUp.DAL.Entity
         public string PhoneNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnore]
         public virtual ICollection<Users> Users { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="SalesUpEntities-Web.config Connection String" description="SalesUpEntities Chaîne de connexion utilisée dans web.config par l’application pour accéder à la base de données." defaultValue="metadata=res://*/Entity.SalesUpStorageModel.csdl|res://*/Entity.SalesUpStorageModel.ssdl|res://*/Entity.SalesUpStorageModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=salesup.database.windows.net;initial catalog=SalesUp;persist security info=True;user id=salesup;password=Toor2017;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\Guillaume\ Tran\\documents\\visual\ studio\ 2017\\Projects\\SalesUp\\SalesUp\.API\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SalesUpEntities']/@connectionString" />
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Guillaume\ Tran\\Documents\\Visual\ Studio\ 2017\\Projects\\SalesUp\\SalesUp\.API\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SalesUpEntities']/@connectionString" />
   </parameter>
 </parameters>

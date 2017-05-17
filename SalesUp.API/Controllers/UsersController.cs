@@ -79,7 +79,6 @@ namespace SalesUp.API.Controllers
             try
             {
                 var user = usersService.GetById(id);
-
                 if (user != null)
                 {
                     result = Request.CreateResponse(HttpStatusCode.OK);
@@ -148,7 +147,7 @@ namespace SalesUp.API.Controllers
 
             try
             {
-                value.Id = Guid.NewGuid().ToString();
+                //value.Id = Guid.NewGuid().ToString();
                 usersService.Add(value);
                 result = Request.CreateResponse(HttpStatusCode.OK);
                 result.Content = new StringContent(JsonConvert.SerializeObject("Insert operation is a success"),

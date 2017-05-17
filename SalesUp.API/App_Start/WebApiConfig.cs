@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace SalesUp.API
 {
@@ -10,7 +8,7 @@ namespace SalesUp.API
         public static void Register(HttpConfiguration config)
         {
             // Configuration et services de l'Web API 
-
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
             // Itinéraires de l'Web API 
             config.MapHttpAttributeRoutes();
 

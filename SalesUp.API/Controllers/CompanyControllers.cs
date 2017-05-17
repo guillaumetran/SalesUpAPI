@@ -40,8 +40,11 @@ namespace SalesUp.API.Controllers
                 {
                     result = Request.CreateResponse(HttpStatusCode.NotFound);
                 }
-
-                result.Content = new StringContent(JsonConvert.SerializeObject(company), Encoding.UTF8, "application/json");
+                
+                result.Content = new StringContent(JsonConvert.SerializeObject(company, 
+                    Formatting.None,
+                    new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Include }), 
+                    Encoding.UTF8, "application/json");
             }
             catch (System.Exception tEx)
             {
