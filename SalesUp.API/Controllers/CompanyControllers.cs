@@ -212,7 +212,7 @@ namespace SalesUp.API.Controllers
                 value.Id = Guid.NewGuid().ToString();
                 companyService.Add(value);
                 result = Request.CreateResponse(HttpStatusCode.OK);
-                result.Content = new StringContent(JsonConvert.SerializeObject("Insert operation is a success"),
+                result.Content = new StringContent(JsonConvert.SerializeObject(value),
                     Encoding.UTF8, "application/json");
             }
             catch (System.Exception tEx)
