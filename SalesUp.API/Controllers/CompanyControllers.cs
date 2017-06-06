@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SalesUp.API.Models;
 using SalesUp.BLL;
 using SalesUp.DAL.Entity;
@@ -96,8 +97,30 @@ namespace SalesUp.API.Controllers
             }
             catch (Exception tEx)
             {
-                result = Request.CreateResponse(HttpStatusCode.Unauthorized);
-                result.Content = new StringContent(JsonConvert.SerializeObject("Unauthorized access"), Encoding.UTF8, "application/json");
+                try
+                {
+                    var company = companyService.GetById(id);
+
+                    if (company != null)
+                    {
+                        result = Request.CreateResponse(HttpStatusCode.OK);
+                        JObject o = new JObject();
+                        o.Add("name", company.Name);
+                        result.Content = new StringContent(JsonConvert.SerializeObject(o), Encoding.UTF8, "application/json");
+                    }
+                    else
+                    {
+                        result = Request.CreateResponse(HttpStatusCode.NotFound);
+                        result.Content = new StringContent("null", Encoding.UTF8, "application/json");
+                    }
+
+                }
+                catch (System.Exception ex)
+                {
+                    System.Exception raisedException = ex;
+                    result = Request.CreateResponse(HttpStatusCode.InternalServerError);
+                    result.Content = new StringContent(JsonConvert.SerializeObject("Internal Server Error"), Encoding.UTF8, "application/json");
+                }
                 return result;
             }
             #endregion
@@ -186,7 +209,7 @@ namespace SalesUp.API.Controllers
 
             try
             {
-                //value.Id = Guid.NewGuid().ToString();
+                value.Id = Guid.NewGuid().ToString();
                 companyService.Add(value);
                 result = Request.CreateResponse(HttpStatusCode.OK);
                 result.Content = new StringContent(JsonConvert.SerializeObject("Insert operation is a success"),
