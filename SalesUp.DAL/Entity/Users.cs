@@ -10,7 +10,7 @@
 namespace SalesUp.DAL.Entity
 {
     using Newtonsoft.Json;
-    
+
     public partial class Users
     {
         public string Id { get; set; }

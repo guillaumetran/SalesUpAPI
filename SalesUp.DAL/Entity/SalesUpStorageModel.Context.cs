@@ -19,17 +19,17 @@ namespace SalesUp.DAL.Entity
             : base("name=SalesUpEntities")
         {
         }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
 
         public virtual void Commit()
         {
             base.SaveChanges();
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            throw new UnintentionalCodeFirstException();
+        }
+    
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     }

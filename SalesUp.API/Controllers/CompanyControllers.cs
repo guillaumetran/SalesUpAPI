@@ -151,6 +151,12 @@ namespace SalesUp.API.Controllers
             #region InputCheck
             try
             {
+                if (value == null)
+                {
+                    result = Request.CreateResponse(HttpStatusCode.Unauthorized);
+                    result.Content = new StringContent(JsonConvert.SerializeObject("Invalid Parameters"), Encoding.UTF8, "application/json");
+                    return result;
+                }
                 string token = req.Headers.Authorization.ToString();
                 userId = utils.checkToken(token);
             }
@@ -180,7 +186,7 @@ namespace SalesUp.API.Controllers
 
             try
             {
-                value.Id = Guid.NewGuid().ToString();
+                //value.Id = Guid.NewGuid().ToString();
                 companyService.Add(value);
                 result = Request.CreateResponse(HttpStatusCode.OK);
                 result.Content = new StringContent(JsonConvert.SerializeObject("Insert operation is a success"),

@@ -146,17 +146,12 @@ namespace SalesUp.API.Controllers
             #region InputCheck
             try
             {
-                string token = req.Headers.Authorization.ToString();
-                userId = utils.checkToken(token);
-            }
-            catch (Exception tEx)
-            {
-                result = Request.CreateResponse(HttpStatusCode.Unauthorized);
-                result.Content = new StringContent(JsonConvert.SerializeObject("Unauthorized access"), Encoding.UTF8, "application/json");
-                return result;
-            }
-            try
-            {
+                if (value == null)
+                {
+                    result = Request.CreateResponse(HttpStatusCode.Unauthorized);
+                    result.Content = new StringContent(JsonConvert.SerializeObject("Invalid Parameters"), Encoding.UTF8, "application/json");
+                    return result;
+                }
                 if (usersService.GetById(value.Id) != null)
                 {
                     result = Request.CreateResponse(HttpStatusCode.Found);
@@ -176,6 +171,17 @@ namespace SalesUp.API.Controllers
                 result = Request.CreateResponse(HttpStatusCode.InternalServerError);
                 result.Content = new StringContent(JsonConvert.SerializeObject(raisedException), Encoding.UTF8, "application/json");
             }
+            try
+            {
+                string token = req.Headers.Authorization.ToString();
+                userId = utils.checkToken(token);
+            }
+            catch (Exception tEx)
+            {
+                result = Request.CreateResponse(HttpStatusCode.Unauthorized);
+                result.Content = new StringContent(JsonConvert.SerializeObject("Unauthorized access"), Encoding.UTF8, "application/json");
+                return result;
+            }
             #endregion
 
             try
@@ -189,7 +195,7 @@ namespace SalesUp.API.Controllers
             {
                 System.Exception raisedException = tEx;
                 result = Request.CreateResponse(HttpStatusCode.InternalServerError);
-                result.Content = new StringContent(JsonConvert.SerializeObject(raisedException.ToString()), Encoding.UTF8, "application/json");
+                result.Content = new StringContent(JsonConvert.SerializeObject("Insert operation failed"), Encoding.UTF8, "application/json");
             }
             return result;
         }
